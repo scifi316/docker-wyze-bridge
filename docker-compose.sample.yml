@@ -3,6 +3,10 @@ services:
         container_name: wyze-bridge
         restart: unless-stopped
         image: mrlt8/wyze-bridge:latest
+        # Recommended if cameras fail with IOTC_ER_TIMEOUT: Docker's default
+        # bridge network can drop the cameras' UDP replies. With host networking
+        # the bridge uses the host's ports directly and the ports list below is ignored.
+        # network_mode: host
         ports:
             - 1935:1935 # RTMP
             - 8554:8554 # RTSP
